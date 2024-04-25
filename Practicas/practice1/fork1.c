@@ -2,14 +2,22 @@
 #include <unistd.h>
 
 int main(void) {
+  /* Llamada a fork que la guardamos en una variable de tipo pid_t
+  * Esta guarda el valor de retorno de la llamada fork
+  * Si valor de retorno es 0, es hijo
+  * Si valor de retorno es el PID (process ID) del hijo, es padre
+  */
   pid_t pid = fork();
+
   if (pid == 0) {
-    printf("Hello from the other side\n");
+    // Proceso hijo
+    printf("HIJO\n");
   } else {
-    printf("Hello, it's me\n");
-  }
+    // Proceso padre
+    printf("PADRE\n");
+  } // End if
   return 0;
-}
+} // End main
 
 // Compilar gcc -o fork1 fork1.c
 // Ejecutar ./fork1

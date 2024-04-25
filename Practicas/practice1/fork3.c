@@ -4,20 +4,23 @@
 
 int main(void) {
   int status = 0;
-  // Tipo de process id es pid_t
   pid_t pid = fork();
+
   if (pid == 0) {
-    printf("Hello from the other side\n");
+    printf("HIJO\n");
   } else {
-    printf("LokinLindo.");
-    printf("Hello, it's me\n");
-    // process id - para sabe si el hijo falla o no - 0 buscar info
+    // Inicia el proceso padre
+    printf("Inicia el proceso padre.");
+    printf("PADRE\n");
+    // process id - para saber si el hijo falla o no - 0 buscar info
     // -1 en pid para elegir un fork aleatorio
+    // wait es para esperar
     waitpid(pid, &status, 0);
-    printf("LokinMalo.");
-  }
+    // Termina proceso padre
+    printf("Termina proceso padre.");
+  } // End if
   return 0;
-}
+} // End main
 
 /*
 1. ¿Se imprimen en el orden esperado?
