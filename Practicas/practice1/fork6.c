@@ -27,12 +27,14 @@ int main(void) {
 
     if (pid == 0) {
       // HIJO
+      // Sobreescribe el buffer
       snprintf(msg, 100, "I'm child process number %d\n", i);
       printf("%s", msg);
       return 0;
     } // End if
   }   // End for
 
+  // Ciclo para esperar cada hijo
   for (int i = 0; i < total_forks; i++) {
     wait(NULL);
   } // End for
@@ -60,4 +62,5 @@ int main(void) {
 
 5. ¿Qué pasó con la asignación de memoria de msg realizada en los hijos?
   La sobreescriben en cada hijo por el snprintf(msg, 100, "I'm child process number %d\n", i);
+  Pues a cada hijo se le hace una copia de memoria.
 */
