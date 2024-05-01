@@ -44,17 +44,20 @@ int main(void) {
 
 /*
 1. ¿Qué valor tiene la variable msg al final del programa?
-	
+	'The final value of msg is: I'm the parent process!!!'
 
 2. ¿Por qué el valor de msg cambia o no?
+  El valor no cambia, al inicio y al final se imprime msg y da el mismo
+  mensaje.
 
-
-3. ¿Porqué los hijos pueden imprimir el mensaje correcto?
-
+3. ¿Por qué los hijos pueden imprimir el mensaje correcto?
+  Porque cada llamado a fork hace una copia de la memoria.
 
 4. Al final, qué valor tiene la variable msg? ¿Porqué?
-
+  Tiene el mismo resultado que el inicial, porque es del parent, el
+  cual debe esperar a que todos los hijos se ejecuten y luego el debe
+  terminar, entonces msg no se modifica en el parent.
 
 5. ¿Qué pasó con la asignación de memoria de msg realizada en los hijos?
-
+  La sobreescriben en cada hijo por el snprintf(msg, 100, "I'm child process number %d\n", i);
 */
