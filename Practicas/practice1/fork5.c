@@ -7,7 +7,6 @@ int main(void)
 	int status = 0;
 	printf("Main process\n");
 	int n = 5;
-	//pid_t pid = fork();
 
 	for (int i = 0; i < n; i++)
 	{
@@ -26,7 +25,6 @@ int main(void)
 			waitpid(pid, &status, 0);
 		} // End if
 	} // End for
-	//waitpid(pid, &status, 0);
 	printf("DONE\n");
 	return 0;
 } // End main
