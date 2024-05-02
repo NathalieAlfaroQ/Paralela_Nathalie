@@ -45,8 +45,7 @@ int main(void) {
         - atributos del hilo (en este caso, NULL para usar los valores por defecto),
         - la función que se ejecutará en el hilo (en este caso, increment),
         - y un argumento para esa función (también NULL en este caso).
-    Si hay un error al crear el hilo, se imprime un mensaje de error
-    y se devuelve 1 (indicando un fallo).
+    Si hay un error al crear el hilo, se imprime un mensaje de error y se devuelve 1 (indicando un fallo).
     */
     if (pthread_create(&threads[i], NULL, increment, NULL) != 0) {
       perror("Error creating thread\n");
