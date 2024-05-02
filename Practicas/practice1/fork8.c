@@ -43,10 +43,11 @@ int main(void) {
 
 /*
 1. ¿Cuánta memoria gasta el programa (incluyendo cada proceso)?
-    1 gigabyte (GB) son 1024 megabytes (MB)
-    cada MB equivale a 1024 kilobytes (KB)
-    entonces se asigna:
-    1024 * 1024 * 1024 bytes de memoria, que es 1 GB
+  Memoria asignada para msg en el proceso padre: 1 GB (1024 * 1024 * 1024 bytes).
+
+  Memoria asignada para msg en cada proceso hijo: 100 bytes (debido a snprintf(msg, 100, "hello from child %d", i);).
+
+  El programa utilizará al menos 1 GB de memoria más la memoria adicional para el proceso padre y cada proceso hijo.
 
 2. ¿Estamos gastando 100GB de memoria o no?
     No.
