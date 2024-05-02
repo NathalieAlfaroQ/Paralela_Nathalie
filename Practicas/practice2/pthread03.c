@@ -56,24 +56,97 @@ int main(void) {
 // Ejecutar ./pthread03
 
 /*
+Para buscar errores de sincronizacion se usa Helgrind:
+  gcc -pthread -g -o pthread03 pthread03.c
+  valgrind --tool=helgrind ./pthread03
+
 Compilen y ejecuten el programa varias veces. Reporten ¿Qué observan? ¿Por qué ocurre esto?
 
-Al ejecutarlo varias veces se observa que algunas veces se llega al reusltado
-esperado y otras no ya que siguen compartiendo memoria y no hay mutex/semaforo
-para hacer sincronizacion y un hilo puede empezar a la vez que otro.
+  Al ejecutarlo varias veces se observa que algunas veces se llega al reusltado
+  esperado y otras no ya que siguen compartiendo memoria y no hay mutex/semaforo
+  para hacer sincronizacion y un hilo puede empezar a la vez que otro.
 
-Global before: 0
-Global after: 16000
-alfanath@Alfa:~/paralelaEsteban/Paralela_Nathalie/Practicas/practice2$./pthread03
-Global before: 0
-Global after: 15657
-alfanath@Alfa:~/paralelaEsteban/Paralela_Nathalie/Practicas/practice2$./pthread03
-Global before: 0
-Global after: 15512
-alfanath@Alfa:~/paralelaEsteban/Paralela_Nathalie/Practicas/practice2$./pthread03
-Global before: 0
-Global after: 15369
-alfanath@Alfa:~/paralelaEsteban/Paralela_Nathalie/Practicas/practice2$./pthread03
-Global before: 0
-Global after: 14956
+    Global before: 0
+    Global after: 16000
+    alfanath@Alfa:~/paralelaEsteban/Paralela_Nathalie/Practicas/practice2$./pthread03
+    Global before: 0
+    Global after: 15657
+    alfanath@Alfa:~/paralelaEsteban/Paralela_Nathalie/Practicas/practice2$./pthread03
+    Global before: 0
+    Global after: 15512
+    alfanath@Alfa:~/paralelaEsteban/Paralela_Nathalie/Practicas/practice2$./pthread03
+    Global before: 0
+    Global after: 15369
+    alfanath@Alfa:~/paralelaEsteban/Paralela_Nathalie/Practicas/practice2$./pthread03
+    Global before: 0
+    Global after: 14956
+
+  Al ejecutar con Valgrind, aun se presentan los 28 errores:
+
+    ==146216== Helgrind, a thread error detector
+    ==146216== Copyright (C) 2007-2017, and GNU GPL'd, by OpenWorks LLP et al.
+    ==146216== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+    ==146216== Command: ./pthread03
+    ==146216== 
+    Global before: 0
+    ==146216== ---Thread-Announcement------------------------------------------
+    ==146216== 
+    ==146216== Thread #4 was created
+    ==146216==    at 0x498F9F3: clone (clone.S:76)
+    ==146216==    by 0x49908EE: __clone_internal (clone-internal.c:83)
+    ==146216==    by 0x48FE6D8: create_thread (pthread_create.c:295)
+    ==146216==    by 0x48FF1FF: pthread_create@@GLIBC_2.34 (pthread_create.c:828)
+    ==146216==    by 0x4853767: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+    ==146216==    by 0x10929C: main (pthread03.c:39)
+    ==146216== 
+    ==146216== ---Thread-Announcement------------------------------------------
+    ==146216== 
+    ==146216== Thread #3 was created
+    ==146216==    at 0x498F9F3: clone (clone.S:76)
+    ==146216==    by 0x49908EE: __clone_internal (clone-internal.c:83)
+    ==146216==    by 0x48FE6D8: create_thread (pthread_create.c:295)
+    ==146216==    by 0x48FF1FF: pthread_create@@GLIBC_2.34 (pthread_create.c:828)
+    ==146216==    by 0x4853767: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+    ==146216==    by 0x10929C: main (pthread03.c:39)
+    ==146216== 
+    ==146216== ----------------------------------------------------------------
+    ==146216== 
+    ==146216== Possible data race during read of size 4 at 0x10C014 by thread #4
+    ==146216== Locks held: none
+    ==146216==    at 0x109202: increment (pthread03.c:16)
+    ==146216==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+    ==146216==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+    ==146216==    by 0x498FA03: clone (clone.S:100)
+    ==146216== 
+    ==146216== This conflicts with a previous write of size 4 by thread #3
+    ==146216== Locks held: none
+    ==146216==    at 0x10920B: increment (pthread03.c:16)
+    ==146216==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+    ==146216==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+    ==146216==    by 0x498FA03: clone (clone.S:100)
+    ==146216==  Address 0x10c014 is 0 bytes inside data symbol "global"
+    ==146216== 
+    ==146216== ----------------------------------------------------------------
+    ==146216== 
+    ==146216== Possible data race during write of size 4 at 0x10C014 by thread #4
+    ==146216== Locks held: none
+    ==146216==    at 0x10920B: increment (pthread03.c:16)
+    ==146216==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+    ==146216==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+    ==146216==    by 0x498FA03: clone (clone.S:100)
+    ==146216== 
+    ==146216== This conflicts with a previous write of size 4 by thread #3
+    ==146216== Locks held: none
+    ==146216==    at 0x10920B: increment (pthread03.c:16)
+    ==146216==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+    ==146216==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+    ==146216==    by 0x498FA03: clone (clone.S:100)
+    ==146216==  Address 0x10c014 is 0 bytes inside data symbol "global"
+    ==146216== 
+    Global after: 16000
+    ==146216== 
+    ==146216== Use --history-level=approx or =none to gain increased speed, at
+    ==146216== the cost of reduced accuracy of conflicting-access information
+    ==146216== For lists of detected and suppressed errors, rerun with: -s
+    ==146216== ERROR SUMMARY: 28 errors from 2 contexts (suppressed: 270 from 18)
 */

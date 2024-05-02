@@ -24,7 +24,7 @@ int main(void) {
 // Ejecutar ./pthread01
 
 /*
- Corran el programa y reporten el resultado.
+Corran el programa y reporten el resultado.
   El resultado fue:
-  hola
+    hola
 */
