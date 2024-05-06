@@ -157,17 +157,17 @@ int main(int argc, char *argv[])
 } // End main
 
 /*
-Compilar gcc -pthread -o ejercicio121.c  ejercicio121.c.c -lm
-Ejecutar time ./ejercicio121.c 100000000 4
+Compilar gcc -pthread -o ejercicio1  ejercicio1.c -lm
+Ejecutar time ./ejercicio1 100000000 4
 
 Para buscar errores de sincronizacion se usa Helgrind:
-  gcc -pthread -g -o ejercicio121.c ejercicio121.c.c -lm
-  valgrind --tool=helgrind time ./ejercicio121.c 100000000 4
+  gcc -pthread -g -o ejercicio1 ejercicio1.c -lm
+  valgrind --tool=helgrind time ./ejercicio1 100000000 4
 
 ==346988== Helgrind, a thread error detector
 ==346988== Copyright (C) 2007-2017, and GNU GPL'd, by OpenWorks LLP et al.
 ==346988== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==346988== Command: time ./ejercicio121.c 100000000 4
+==346988== Command: time ./ejercicio1 100000000 4
 ==346988== 
 
 Mensaje enviado: 19635719
@@ -187,11 +187,11 @@ Valor de pi: 3.141715
 
 
 
-valgrind --tool=helgrind time ./ejercicio121.c 200000000 10
+valgrind --tool=helgrind time ./ejercicio1 200000000 10
 ==349860== Helgrind, a thread error detector
 ==349860== Copyright (C) 2007-2017, and GNU GPL'd, by OpenWorks LLP et al.
 ==349860== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==349860== Command: time ./ejercicio121.c 200000000 10
+==349860== Command: time ./ejercicio1 200000000 10
 ==349860== 
 
 Mensaje enviado: 15708033
@@ -217,11 +217,11 @@ Valor de pi: 3.141607
 
 
 
-valgrind --tool=helgrind time ./ejercicio121.c 100000000 1
+valgrind --tool=helgrind time ./ejercicio1 100000000 1
 ==350400== Helgrind, a thread error detector
 ==350400== Copyright (C) 2007-2017, and GNU GPL'd, by OpenWorks LLP et al.
 ==350400== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==350400== Command: time ./ejercicio121.c 100000000 1
+==350400== Command: time ./ejercicio1 100000000 1
 ==350400== 
 
 Mensaje enviado: 78538199
