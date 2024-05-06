@@ -1,3 +1,5 @@
+// EJERCICIO 1 Y 2
+
 #include <math.h>
 #include <pthread.h>
 #include <stdint.h>
