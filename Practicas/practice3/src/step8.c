@@ -26,7 +26,7 @@
  * Si compila los ejercicios 6 y 7 con los flags de optimización
  * sugeridos en este ejercicio: 
  * ¿el compilador logra optimizar mejor la versión “tradicional”?
- * 
+ * Con -03 si
  */
 
 // Bibliotecas

@@ -12,6 +12,8 @@ finalmente _mm_storeu_si128 para guardar el resultado al array.
 Compile el programa y luego decompílelo usando objdump -d. Observe las
 diferencias en el código generado. ¿El compilador logró optimizar la versión
 “tradicional”?
+
+Con -o0 objdump -d no hay optimizacion, con -02 objdump -d si hay.
 */
 
 // Bibliotecas
